@@ -8,7 +8,7 @@ from .nodes import *
 from .loader import *
 from .dumper import *
 
-__version__ = '6.0'
+__version__ = '6.0.0.dev0'
 try:
     from .cyaml import *
     __with_libyaml__ = True
@@ -71,22 +71,26 @@ def compose_all(stream, Loader=Loader):
     finally:
         loader.dispose()
 
-def load(stream, Loader):
+def load(stream, Loader=None):
     """
     Parse the first YAML document in a stream
     and produce the corresponding Python object.
     """
+    if Loader is None:
+        Loader = SafeLoader
     loader = Loader(stream)
     try:
         return loader.get_single_data()
     finally:
         loader.dispose()
 
-def load_all(stream, Loader):
+def load_all(stream, Loader=None):
     """
     Parse all YAML documents in a stream
     and produce corresponding Python objects.
     """
+    if Loader is None:
+        Loader = SafeLoader
     loader = Loader(stream)
     try:
         while loader.check_data():
