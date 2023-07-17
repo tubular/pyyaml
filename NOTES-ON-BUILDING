@@ -1,0 +1,5 @@
+docker run -it --workdir=/io --rm -v $(pwd):/io quay.io/pypa/manylinux2014_x86_64 /bin/bash
+# installation on cython3 is broken
+# https://github.com/yaml/pyyaml/issues/601
+/opt/python/cp310-cp310/bin/python -m pip install cython==0.29.36
+/opt/python/cp310-cp310/bin/python setup.py bdist_wheel
